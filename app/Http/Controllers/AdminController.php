@@ -22,10 +22,14 @@ class AdminController extends Controller
         );
 
         if (Auth::attempt($data)){
-            echo "Login Success";
+            return redirect()-> route('admin.dashboard');
         }
         else{
             return back() ->withErrors(['message' => 'Invalid Email or Password']);
         }
+    }
+
+    public function dashboard(){
+        return view('admin.dashboard');
     }
 }

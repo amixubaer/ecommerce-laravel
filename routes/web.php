@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\AdminController;
+use GuzzleHttp\Middleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,4 +32,11 @@ Route::get('/productView', [BaseController::class, 'productView'])-> name('produ
 
 Route::get('/admin/login', [AdminController::class, 'login'])-> name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'makeLogin'])-> name('admin.makeLogin');
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])-> name('admin.dashboard');
+
+// protected route
+Route::group(['middleware' =>'auth'], function(){
+
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])-> name('admin.dashboard');
+    Route::get('/admin/logout', [AdminController::class, 'logout'])-> name('admin.logout');
+
+});

@@ -40,6 +40,10 @@ Route::group(['middleware' =>'auth'], function(){
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])-> name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'logout'])-> name('admin.logout');
 
+    Route::get('/categories', [CategoryController::class,'index'])->name('category.list');
     Route::get('/category/add', [CategoryController::class,'create'])->name('category.create');
 	Route::post('/category/add', [CategoryController::class,'store'])->name('category.store');
+    Route::get('/categories/edit/{id}', [CategoryController::class,'edit'])->name('category.edit');
+	Route::post('/categories/edit/{id}', [CategoryController::class,'update'])->name('category.update');
+	Route::post('/category/delete', [CategoryController::class,'destroy'])->name('category.delete');
 });

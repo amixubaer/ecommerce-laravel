@@ -12,9 +12,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $categories = Category::where('status','1')->get();
+        return view('admin.category.index',compact('categories'));
     }
 
     /**
@@ -22,8 +22,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $categories = Category::whereNull('category_id')->get();
         return view('admin.category.add',compact('categories'));
     }
@@ -34,8 +33,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $data = array(
             'name' => $request->name,
             'category_id' => $request->category_id,
@@ -51,8 +49,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
-    {
+    public function show(Category $category) {
         //
     }
 
@@ -62,9 +59,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
-    {
-        //
+    public function edit(Request $request, Category $category) {
+        $id = $request->id;
+        $categories = Category::whereNull('category_id')->get();
+        $category = Category::find($id);
+        return view('admin.category.edit',compact('categories','category'));
     }
 
     /**
@@ -74,9 +73,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
-    {
-        //
+    public function update(Request $request, Category $category){
+        $id = $request->id;
+        $data = array(
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+        );
+
+        $category = Category::find($id);
+        $category->update($data);
+        return redirect()->route('category.list');
     }
 
     /**
@@ -85,8 +91,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
-    {
-        //
+    public function destroy(Request $request, Category $category){
+        $id = $request->id;
+        $category = Category::find($id);
+        $category->delete();
+        return response()->json('success');
     }
 }

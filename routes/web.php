@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -37,7 +38,8 @@ Route::post('user/register', [Basecontroller::class,'user_store'])->name('user_s
 Route::get('user/logout', [Basecontroller::class,'logout'])->name('user_logout');
 
 
-
+Route::post('cart/store', [CartController::class,'store'])->name('cart.store');
+Route::get('cart/delete', [CartController::class,'destroy'])->name('cart.delete');
 
 Route::get('/admin/login', [AdminController::class, 'login'])-> name('admin.login');
 Route::post('/admin/login', [AdminController::class, 'makeLogin'])-> name('admin.makeLogin');

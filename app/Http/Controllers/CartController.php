@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Auth;
 
 class CartController extends Controller
 {
@@ -33,9 +34,15 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $data = array(
+            'product_id'=>$request->product_id,
+            'qty'=>$request->qty,
+            'user_id'=>Auth::user()->id,
+        );
+
+        Cart::create($data);
+        return redirect()->route('cart');
     }
 
     /**
@@ -78,8 +85,10 @@ class CartController extends Controller
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy(Cart $cart,Request $request)
     {
-        //
+        $id = $request->id;
+        $cart = Cart::where('id',$id)->first();
+        $cart->delete();
     }
 }

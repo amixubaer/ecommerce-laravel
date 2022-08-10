@@ -28,7 +28,7 @@ Route::get('/specialOffer', [BaseController::class, 'specialOffer'])-> name('spe
 Route::get('/delivery', [BaseController::class, 'delivery'])-> name('delivery');
 Route::get('/contact', [BaseController::class, 'contact'])-> name('contact');
 Route::get('/cart', [BaseController::class, 'cart'])-> name('cart');
-Route::get('/productView', [BaseController::class, 'productView'])-> name('productView');
+Route::get('/productView/{id}', [BaseController::class, 'productView'])-> name('productView');
 
 
 

@@ -30,6 +30,12 @@ Route::get('/contact', [BaseController::class, 'contact'])-> name('contact');
 Route::get('/cart', [BaseController::class, 'cart'])-> name('cart');
 Route::get('/productView/{id}', [BaseController::class, 'productView'])-> name('productView');
 
+Route::get('user/login', [Basecontroller::class,'user_login'])->name('user_login');
+Route::post('user/login', [Basecontroller::class,'loginCheck'])->name('loginCheck');
+Route::post('user/register', [Basecontroller::class,'user_store'])->name('user_store');
+Route::get('user/logout', [Basecontroller::class,'logout'])->name('user_logout');
+
+
 
 
 Route::get('/admin/login', [AdminController::class, 'login'])-> name('admin.login');

@@ -32,7 +32,7 @@
 				  <div class="control-group">
 					<label class="control-label"><span>${{$product->price}}</span></label>
 					<div class="controls">
-						<form method="post" >
+						<form method="post" action="{{route('cart.store')}}">
 							@csrf
 							<input type="number" class="span1" name="qty" placeholder="Qty."/>
 							<input type="hidden" value="{{$product->id}}" name="product_id" readonly>
